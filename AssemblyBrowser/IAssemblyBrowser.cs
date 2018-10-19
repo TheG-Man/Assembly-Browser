@@ -8,6 +8,6 @@ namespace AssemblyBrowser
 {
     public interface IAssemblyBrowser
     {
-        AssemblyInfo GetAssemblyInfo();
+        AssemblyInfo GetAssemblyInfo(string path);
     }
 }
