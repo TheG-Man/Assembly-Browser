@@ -72,7 +72,7 @@ namespace AssemblyBrowser.Builders
                 nestedTypes.Add((TypeDeclaration)buildDirector.Construct());
             }
 
-            return new TypeDeclaration(name, fullName, baseType, isInterface, isGeneric, modifiers, implementedInterfaces, genericTypeParameters, fields, properties, methods, events, nestedTypes);
+            return new TypeDeclaration(name, fullName, baseType, isInterface, isGeneric, modifiers, implementedInterfaces, genericParameters, fields, properties, methods, events, nestedTypes);
         }
 
         private List<string> GetGenericParameters()
