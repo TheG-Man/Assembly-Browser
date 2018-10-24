@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using AssemblyBrowser.TypeMembers;
 
 namespace AssemblyBrowser.Builders
 {
@@ -18,6 +19,11 @@ namespace AssemblyBrowser.Builders
         public object Construct()
         {
             return _builder.Build();
+        }
+
+        public object Construct(Dictionary<string, MethodDeclaration> extensionMethods)
+        {
+            return ((TypeBuilder)_builder).Build(extensionMethods);
         }
     }
 }
