@@ -65,7 +65,9 @@ namespace AssemblyBrowser.Builders
                 isConstructor = true;
             }
 
-            return new MethodDeclaration(name, returnTypeName, isConstructor, isGeneric, false, modifiers, parameters, genericMethodParameters);
+            bool isExtensionMethod = parameters.Count > 0 ? IsExtensionMethod(parameters.First()) : false;
+
+            return new MethodDeclaration(name, returnTypeName, isConstructor, isGeneric, isExtensionMethod, modifiers, parameters, genericMethodParameters);
         }
 
         private Modifiers GetModifiers()
@@ -130,6 +132,11 @@ namespace AssemblyBrowser.Builders
             }
 
             return accessModifiers;
+        }
+
+        private bool IsExtensionMethod(ParameterDeclaration parameterDeclaration)
+        {
+            return parameterDeclaration.IsClass && _methodBase.IsStatic;
         }
     }
 }
