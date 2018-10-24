@@ -22,6 +22,8 @@ namespace AssemblyBrowser.Builders
             string name = _parameterInfo.Name;
             string typeName = _parameterInfo.ParameterType.Name;
             bool isGeneric = _parameterInfo.ParameterType.IsGenericType;
+            bool isClass = _parameterInfo.ParameterType.IsClass | _parameterInfo.ParameterType.IsInterface;
+
             Modifiers modifiers = GetModifiers();
             List<string> genericParameters = new List<string>();
 
@@ -30,7 +32,7 @@ namespace AssemblyBrowser.Builders
                 genericParameters = GetGenericParameters();
             }
 
-            return new ParameterDeclaration(name, typeName, isGeneric, modifiers, genericParameters);
+            return new ParameterDeclaration(name, typeName, isGeneric, isClass, modifiers, genericParameters);
         }
 
         private List<string> GetGenericParameters()
