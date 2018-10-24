@@ -53,6 +53,7 @@
     <Compile Include="Builders\TypeBuilder.cs" />
     <Compile Include="IGeneric.cs" />
     <Compile Include="TypeMembers\EventDeclaration.cs" />
+    <Compile Include="TypeMembers\ExtensionMethodDeclaration.cs" />
     <Compile Include="TypeMembers\FieldDeclaration.cs" />
     <Compile Include="IAssemblyBrowser.cs" />
     <Compile Include="Builders\IBuilder.cs" />
