@@ -19,13 +19,18 @@ namespace AssemblyBrowser.Builders
 
         public object Build()
         {
+            return null;
+        }
+
+        public object Build(Dictionary<string, MethodDeclaration> extensionMethods)
+        {
             string name = _typeInfo.Name;
             string fullName = _typeInfo.FullName;
             string baseType = _typeInfo.BaseType?.FullName;
-            bool isInterface;
+            bool isInterface = _typeInfo.IsInterface;
             bool isGeneric = _typeInfo.IsGenericType;
 
-            Modifiers modifiers = GetModifiers(out isInterface);
+            Modifiers modifiers = GetModifiers();
             List<string> implementedInterfaces = _typeInfo.ImplementedInterfaces.Select(i => i.Name).ToList();
 
             List<string> genericParameters = new List<string>();
@@ -54,7 +59,7 @@ namespace AssemblyBrowser.Builders
                     var buildDirector = new BuildDirector(new PropertyBuilder(member));
                     properties.Add((PropertyDeclaration)buildDirector.Construct());
                 }
-                else if (member is MethodInfo)
+                else if (member is MethodBase)
                 {
                     var buildDirector = new BuildDirector(new MethodBuilder(member));
                     methods.Add((MethodDeclaration)buildDirector.Construct());
@@ -70,6 +75,14 @@ namespace AssemblyBrowser.Builders
             {
                 var buildDirector = new BuildDirector(new TypeBuilder(nestedType));
                 nestedTypes.Add((TypeDeclaration)buildDirector.Construct());
+            }
+
+            foreach (KeyValuePair<string, MethodDeclaration> extensionMethod in extensionMethods)
+            {
+                if (name == extensionMethod.Key)
+                {
+                    methods.Add(extensionMethod.Value);
+                }
             }
 
             return new TypeDeclaration(name, fullName, baseType, isInterface, isGeneric, modifiers, implementedInterfaces, genericParameters, fields, properties, methods, events, nestedTypes);
@@ -88,11 +101,10 @@ namespace AssemblyBrowser.Builders
             return genericParameters;
         }
 
-        private Modifiers GetModifiers(out bool isInterface)
+        private Modifiers GetModifiers()
         {
             List<string> dotnetModifiers = new List<string>();
             List<string> csharpModifiers = new List<string>();
-            isInterface = false;
 
             TypeAttributes attributes = _typeInfo.Attributes & ~TypeAttributes.ClassSemanticsMask;
             dotnetModifiers = attributes.ToString().Split(',').ToList();
@@ -101,21 +113,14 @@ namespace AssemblyBrowser.Builders
             TypeAttributes accessAttributes = attributes & TypeAttributes.VisibilityMask;
             csharpModifiers.AddRange(GetAccessModifiers(accessAttributes));
 
-            if ((attributes & TypeAttributes.Interface) != 0)
+            if ((attributes & TypeAttributes.Abstract) != 0)
             {
-                isInterface = true;
+                csharpModifiers.Add("abstract");
             }
-            else
-            {
-                if ((attributes & TypeAttributes.Abstract) != 0)
-                {
-                    csharpModifiers.Add("abstract");
-                }
 
-                if ((attributes & TypeAttributes.Sealed) != 0)
-                {
-                    csharpModifiers.Add("sealed");
-                }
+            if ((attributes & TypeAttributes.Sealed) != 0)
+            {
+               csharpModifiers.Add("sealed");
             }
 
             return new Modifiers(dotnetModifiers, csharpModifiers);
