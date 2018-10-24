@@ -16,12 +16,14 @@ namespace AssemblyBrowser.TypeMembers
         public string TypeName { get; }
         public string Name { get; }
         public bool IsGeneric { get; }
+        public bool IsClass { get; }
 
-        public ParameterDeclaration(string name, string typeName, bool isGeneric, Modifiers modifiers, List<string> genericParameters)
+        public ParameterDeclaration(string name, string typeName, bool isGeneric, bool isClass, Modifiers modifiers, List<string> genericParameters)
         {
             Name = name;
             TypeName = typeName;
             IsGeneric = isGeneric;
+            IsClass = isClass;
 
             _modifiers = modifiers;
             _genericParameters = genericParameters;
