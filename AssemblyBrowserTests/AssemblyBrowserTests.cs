@@ -94,5 +94,13 @@ namespace AssemblyBrowserTests
 
             Assert.AreEqual(2, dtoGeneratorType.Methods.First(x => x.Name == "CreateObjectViaConstructor").Parameters.Count());
         }
+
+        [Test]
+        public void DtoGeneratorImplementedInterfacesTest()
+        {
+            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
+
+            Assert.AreEqual("IDtoGenerator", dtoGeneratorType.ImplementedInterfaces.First());
+        }
     }
 }
