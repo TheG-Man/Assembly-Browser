@@ -17,8 +17,7 @@ namespace AssemblyBrowser
         private readonly List<string> _typesWithExtensionMethods = new List<string>();
 
         private AssemblyBrowser()
-        {
-           
+        { 
         }
 
         public static AssemblyBrowser GetInstance()
