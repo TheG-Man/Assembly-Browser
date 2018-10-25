@@ -40,35 +40,37 @@ namespace AssemblyBrowser
         public AssemblyInfo GetAssemblyInfo(string path)
         {
             var assemblyInfo = new AssemblyInfo();
+            Assembly assembly = null;
 
             try
             {
-                Assembly assembly = Assembly.LoadFrom(path);
-                Dictionary<string, MethodDeclaration> extensionMethods = GetExtensionMethods(assembly);
-
-                foreach (TypeInfo definedType in assembly.DefinedTypes)
-                {
-                    if (!definedType.IsNested)
-                    {
-                        if (!_typesWithExtensionMethods.Contains(definedType.Name))
-                        {
-                            NamespaceDeclaration namespaceDeclaration = new NamespaceDeclaration(definedType.Namespace);
-
-                            var buildDirector = new BuildDirector(new TypeBuilder(definedType));
-                            TypeDeclaration typeDeclaration = (TypeDeclaration)buildDirector.Construct(extensionMethods);
-
-                            namespaceDeclaration.AddType(typeDeclaration);
-                            assemblyInfo.AddNamespace(namespaceDeclaration);
-                        }
-                    }
-                }
-
-                _typesWithExtensionMethods.Clear();
+                assembly = Assembly.LoadFrom(path);
             }
             catch (Exception e)
             {
-                throw e;
+                throw new LoadAssemblyException(e.Message);
             }
+
+            Dictionary<string, MethodDeclaration> extensionMethods = GetExtensionMethods(assembly);
+
+            foreach (TypeInfo definedType in assembly.DefinedTypes)
+            {
+                if (!definedType.IsNested)
+                {
+                    if (!_typesWithExtensionMethods.Contains(definedType.Name))
+                    {
+                        NamespaceDeclaration namespaceDeclaration = new NamespaceDeclaration(definedType.Namespace);
+
+                        var buildDirector = new BuildDirector(new TypeBuilder(definedType));
+                        TypeDeclaration typeDeclaration = (TypeDeclaration)buildDirector.Construct(extensionMethods);
+
+                        namespaceDeclaration.AddType(typeDeclaration);
+                        assemblyInfo.AddNamespace(namespaceDeclaration);
+                    }
+                }
+            }
+
+            _typesWithExtensionMethods.Clear();
 
             return assemblyInfo;
         }
