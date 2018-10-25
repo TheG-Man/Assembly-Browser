@@ -60,7 +60,7 @@
 			</Menu>
 			<Grid>
 				<TreeView x:Name="assemblyInfoTreeView" Width="400" Height="470">
-					<TreeViewItem ItemsSource="{Binding AssemblyViewModelInfo.Namespaces}" Header="Assembly Info" Margin="10"/>
+					<TreeViewItem ItemsSource="{Binding AssemblyViewModel.Namespaces}" Header="Assembly Info" Margin="10"/>
 				</TreeView>
 			</Grid>
 		</StackPanel>

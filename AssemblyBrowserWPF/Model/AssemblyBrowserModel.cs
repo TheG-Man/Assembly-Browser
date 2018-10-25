@@ -11,26 +11,25 @@ namespace AssemblyBrowserWPF.Model
     {
         private readonly IAssemblyBrowser _assemblyBrowser = AssemblyBrowser.AssemblyBrowser.GetInstance();
 
-        private AssemblyViewModel _assemblyInfoViewModel;
-        public AssemblyViewModel AssemblyViewModelInfo
+        private AssemblyViewModel _assemblyViewModel;
+        public AssemblyViewModel AssemblyViewModel
         {
             get
             {
-                return _assemblyInfoViewModel;
+                return _assemblyViewModel;
             }
             private set
             {
-                if (_assemblyInfoViewModel != value)
+                if (_assemblyViewModel != value)
                 {
-                    _assemblyInfoViewModel = value;
-                    RaisePropertyChanged("AssemblyViewModelInfo");
+                    _assemblyViewModel = value;
+                    RaisePropertyChanged("AssemblyViewModel");
                 }
             }
         }
 
         public AssemblyBrowserModel()
         {
-
         }
 
         public void OpenAssembly(string path)
@@ -38,11 +37,11 @@ namespace AssemblyBrowserWPF.Model
             try
             {
                 AssemblyInfo assemblyInfo = _assemblyBrowser.GetAssemblyInfo(path);
-                AssemblyViewModelInfo = new AssemblyViewModel(assemblyInfo);
+                AssemblyViewModel = new AssemblyViewModel(assemblyInfo);
             }
-            catch (Exception)
+            catch (LoadAssemblyException e)
             {
-
+                
             }
         }
 

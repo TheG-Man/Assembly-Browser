@@ -14,7 +14,7 @@ namespace AssemblyBrowserWPF.ViewModel
     {
         private AssemblyBrowserModel _assemblyBrowserModel;
 
-        public AssemblyViewModel AssemblyViewModelInfo => _assemblyBrowserModel.AssemblyViewModelInfo;
+        public AssemblyViewModel AssemblyViewModel => _assemblyBrowserModel.AssemblyViewModel;
         public RelayCommand OpenAssemblyCommand { get; set; }
 
         public ViewModelMain()
