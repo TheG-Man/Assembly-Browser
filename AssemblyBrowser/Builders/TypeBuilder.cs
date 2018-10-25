@@ -71,18 +71,18 @@ namespace AssemblyBrowser.Builders
                 }
             }
 
-            foreach (TypeInfo nestedType in _typeInfo.DeclaredNestedTypes)
-            {
-                var buildDirector = new BuildDirector(new TypeBuilder(nestedType));
-                nestedTypes.Add((TypeDeclaration)buildDirector.Construct());
-            }
-
             foreach (KeyValuePair<string, MethodDeclaration> extensionMethod in extensionMethods)
             {
                 if (name == extensionMethod.Key)
                 {
                     methods.Add(extensionMethod.Value);
                 }
+            }
+
+            foreach (TypeInfo nestedType in _typeInfo.DeclaredNestedTypes)
+            {
+                var buildDirector = new BuildDirector(new TypeBuilder(nestedType));
+                nestedTypes.Add((TypeDeclaration)buildDirector.Construct(extensionMethods));
             }
 
             return new TypeDeclaration(name, fullName, baseType, isInterface, isGeneric, modifiers, implementedInterfaces, genericParameters, fields, properties, methods, events, nestedTypes);
