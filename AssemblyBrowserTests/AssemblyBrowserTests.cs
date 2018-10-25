@@ -54,45 +54,5 @@ namespace AssemblyBrowserTests
 
             Assert.AreEqual(true, iDtoGeneratorType.Methods.Last().IsExtention);
         }
-
-        [Test]
-        public void DtoGeneratorFieldsCountTest()
-        {
-            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
-
-            Assert.AreEqual(4, dtoGeneratorType.Fields.Count());
-        }
-
-        [Test]
-        public void DtoGeneratorMethodsCountTest()
-        {
-            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
-
-            Assert.AreEqual(10, dtoGeneratorType.Methods.Count());
-        }
-
-        [Test]
-        public void DtoGeneratorPropertiesCountTest()
-        {
-            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
-
-            Assert.AreEqual(0, dtoGeneratorType.Properties.Count());
-        }
-
-        [Test]
-        public void DtoGeneratorEventsCountTest()
-        {
-            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
-
-            Assert.AreEqual(0, dtoGeneratorType.Events.Count());
-        }
-
-        [Test]
-        public void DtoGeneratorCreateObjectViaConstructorMethodParametersCountTest()
-        {
-            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
-
-            Assert.AreEqual(2, dtoGeneratorType.Methods.First(x => x.Name == "CreateObjectViaConstructor").Parameters.Count());
-        }
     }
 }
