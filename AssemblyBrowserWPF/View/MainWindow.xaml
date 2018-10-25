@@ -1,0 +1,69 @@
+﻿<Window 
+		x:Class="AssemblyBrowserWPF.ViewModel.MainWindow" WindowStartupLocation="CenterScreen"
+		xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+		xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+		xmlns:vm="clr-namespace:AssemblyBrowserWPF.ViewModel"
+		Title="MainWindow" MaxHeight="570" MaxWidth="500" Background="Azure" 
+		DataContext="{DynamicResource ViewModelMain}">
+	<Window.Resources>
+		<vm:ViewModelMain x:Key="ViewModelMain"/>
+
+		<HierarchicalDataTemplate DataType="{x:Type vm:NamespaceViewModel}" ItemsSource="{Binding Types}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Interface.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</HierarchicalDataTemplate>
+			<HierarchicalDataTemplate DataType="{x:Type vm:TypeViewModel}" ItemsSource="{Binding Members}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Type.png" Width="15"/>
+					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+				</StackPanel>
+			</HierarchicalDataTemplate>
+			<DataTemplate DataType="{x:Type vm:FieldViewModel}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Field.png" Width="15"/>
+					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type vm:PropertyViewModel}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Property.png" Width="15"/>
+					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type vm:MethodViewModel}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Method.png" Width="15"/>
+					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+				</StackPanel>
+			</DataTemplate>
+			<DataTemplate DataType="{x:Type vm:EventViewModel}">
+				<StackPanel Orientation="Horizontal">
+					<Image Source="C:\\Users\\nikol\\Pictures\\AssemblyBrowser\\Event.png" Width="15"/>
+					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+				</StackPanel>
+			</DataTemplate>
+		</Window.Resources>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="0.939*"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<StackPanel>
+			<Menu>
+				<MenuItem Header="File">
+					<MenuItem Header="Open" Command="{Binding OpenAssemblyCommand}"/>
+				</MenuItem>
+			</Menu>
+			<Grid>
+				<TreeView x:Name="assemblyInfoTreeView" Width="400" Height="470">
+					<TreeViewItem ItemsSource="{Binding AssemblyViewModelInfo.Namespaces}" Header="Assembly Info" Margin="10"/>
+				</TreeView>
+			</Grid>
+		</StackPanel>
+	</Grid>
+</Window>
+
