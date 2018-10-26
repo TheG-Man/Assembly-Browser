@@ -5,7 +5,7 @@
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
 		xmlns:vm="clr-namespace:AssemblyBrowserWPF.ViewModel"
-		Title="MainWindow" MaxHeight="570" MaxWidth="500" Background="Azure" 
+		Title="Assembly Browser" Background="Azure" Width="480" Height="600"
 		DataContext="{DynamicResource ViewModelMain}">
 	<Window.Resources>
 		<vm:ViewModelMain x:Key="ViewModelMain"/>
@@ -16,54 +16,61 @@
 				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
 			</StackPanel>
 		</HierarchicalDataTemplate>
-			<HierarchicalDataTemplate DataType="{x:Type vm:TypeViewModel}" ItemsSource="{Binding Members}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="pack://application:,,,/Resources/Images/Type.png" Width="15"/>
-					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
-				</StackPanel>
-			</HierarchicalDataTemplate>
-			<DataTemplate DataType="{x:Type vm:FieldViewModel}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="pack://application:,,,/Resources/Images/Field.png" Width="15"/>
-					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
-				</StackPanel>
-			</DataTemplate>
-			<DataTemplate DataType="{x:Type vm:PropertyViewModel}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="pack://application:,,,/Resources/Images/Property.png" Width="15"/>
-					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
-				</StackPanel>
-			</DataTemplate>
-			<DataTemplate DataType="{x:Type vm:MethodViewModel}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="pack://application:,,,/Resources/Images/Method.png" Width="15"/>
-					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
-				</StackPanel>
-			</DataTemplate>
-			<DataTemplate DataType="{x:Type vm:EventViewModel}">
-				<StackPanel Orientation="Horizontal">
-					<Image Source="pack://application:,,,/Resources/Images/Event.png" Width="15"/>
-					<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
-				</StackPanel>
-			</DataTemplate>
-		</Window.Resources>
+		<HierarchicalDataTemplate DataType="{x:Type vm:TypeViewModel}" ItemsSource="{Binding Members}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="pack://application:,,,/Resources/Images/Type.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</HierarchicalDataTemplate>
+		<DataTemplate DataType="{x:Type vm:FieldViewModel}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="pack://application:,,,/Resources/Images/Field.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:PropertyViewModel}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="pack://application:,,,/Resources/Images/Property.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:MethodViewModel}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="pack://application:,,,/Resources/Images/Method.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</DataTemplate>
+		<DataTemplate DataType="{x:Type vm:EventViewModel}">
+			<StackPanel Orientation="Horizontal">
+				<Image Source="pack://application:,,,/Resources/Images/Event.png" Width="15"/>
+				<TextBlock Text="{Binding StringRepresentation}" Margin="10, 0, 0, 0"/>
+			</StackPanel>
+		</DataTemplate>
+	</Window.Resources>
+	<Window.InputBindings>
+		<KeyBinding Command="{Binding OpenAssemblyCommand}" Key="O" Modifiers="Ctrl"/>
+	</Window.InputBindings>
 	<Grid>
 		<Grid.RowDefinitions>
-			<RowDefinition Height="0.939*"/>
-			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="17"/>
+			<RowDefinition Height="*"/>
 		</Grid.RowDefinitions>
-		<StackPanel>
+		<StackPanel Grid.Row="0" Height="Auto">
 			<Menu>
 				<MenuItem Header="File">
-					<MenuItem Header="Open" Command="{Binding OpenAssemblyCommand}"/>
+					<MenuItem Header="Open" Command="{Binding OpenAssemblyCommand}" InputGestureText="Ctrl + O">
+						<MenuItem.Icon>
+							<Image Source="pack://application:,,,/Resources/Images/OpenFileIcon.png" />
+						</MenuItem.Icon>
+					</MenuItem>
 				</MenuItem>
 			</Menu>
-			<Grid>
-				<TreeView x:Name="assemblyInfoTreeView" Width="400" Height="470">
-					<TreeViewItem ItemsSource="{Binding AssemblyViewModel.Namespaces}" Header="Assembly Info" Margin="10"/>
-				</TreeView>
-			</Grid>
 		</StackPanel>
+		<ScrollViewer Grid.Row="1" x:Name="MainScrollViewer" VerticalScrollBarVisibility="Disabled">
+			<TreeView x:Name="assemblyInfoTreeView" MaxHeight="{Binding ElementName=MainScrollViewer, Path=ActualHeight}">
+				<TreeViewItem ItemsSource="{Binding AssemblyViewModel.Namespaces}" Header="Assembly Info"/>
+			</TreeView>
+		</ScrollViewer>
 	</Grid>
 </Window>
 
