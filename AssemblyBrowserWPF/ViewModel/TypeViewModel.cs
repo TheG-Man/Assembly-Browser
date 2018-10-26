@@ -57,9 +57,11 @@ namespace AssemblyBrowserWPF.ViewModel
                 stringRepresentation += string.Format("<{0}>", GetModifiers(_typeDeclaration.GenericParameters));
             }
 
+            if (_typeDeclaration.BaseType != null)
+                stringRepresentation += string.Format(" : {0} ", _typeDeclaration.BaseType.Split('.').Last());
+
             if (_typeDeclaration.ImplementedInterfaces.Count() > 0)
             {
-                stringRepresentation += " : ";
                 foreach (string interfaceName in _typeDeclaration.ImplementedInterfaces)
                 {
                     stringRepresentation += string.Format("{0} ", interfaceName);
