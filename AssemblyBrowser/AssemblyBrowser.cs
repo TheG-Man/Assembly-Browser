@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using AssemblyBrowser.TypeMembers;
 using AssemblyBrowser.Builders;
-//ExtentionMethodAttribute
+
 namespace AssemblyBrowser
 {
     public class AssemblyBrowser : IAssemblyBrowser
