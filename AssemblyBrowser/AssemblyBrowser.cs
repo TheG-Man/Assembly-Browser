@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 using System.Reflection;
 using AssemblyBrowser.TypeMembers;
 using AssemblyBrowser.Builders;
-
+//ExtentionMethodAttribute
 namespace AssemblyBrowser
 {
     public class AssemblyBrowser : IAssemblyBrowser
@@ -39,7 +39,7 @@ namespace AssemblyBrowser
         public AssemblyInfo GetAssemblyInfo(string path)
         {
             var assemblyInfo = new AssemblyInfo();
-            Assembly assembly = null;
+            Assembly assembly;
 
             try
             {
@@ -64,7 +64,7 @@ namespace AssemblyBrowser
                         TypeDeclaration typeDeclaration = (TypeDeclaration)buildDirector.Construct(extensionMethods);
 
                         namespaceDeclaration.AddType(typeDeclaration);
-                        assemblyInfo.AddNamespace(namespaceDeclaration);
+                        assemblyInfo.AddOrCreateNamespace(namespaceDeclaration);
                     }
                 }
             }
