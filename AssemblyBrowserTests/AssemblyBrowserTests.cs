@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.IO;
+using System.Reflection;
 using NUnit.Framework;
 using AssemblyBrowser;
 using AssemblyBrowser.TypeMembers;
@@ -18,7 +20,8 @@ namespace AssemblyBrowserTests
         [SetUp]
         public void Setup()
         {
-            _assemblyInfo = _assemblyBrowser.GetAssemblyInfo("C:\\Users\\nikol\\iCloudDrive\\Programming\\C#\\Projects\\MPP\\DTO-Generator\\DtoGenerator\\bin\\Debug\\DtoGenerator.dll");
+
+            _assemblyInfo = _assemblyBrowser.GetAssemblyInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/../../TestDll/DtoGenerator.dll");
         }
 
         [Test]
@@ -93,6 +96,14 @@ namespace AssemblyBrowserTests
             TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
 
             Assert.AreEqual(2, dtoGeneratorType.Methods.First(x => x.Name == "CreateObjectViaConstructor").Parameters.Count());
+        }
+
+        [Test]
+        public void DtoGeneratorCreateObjectViaConstructorMethodFirstParameterNameTest()
+        {
+            TypeDeclaration dtoGeneratorType = _assemblyInfo.Namespaces.First().Types.First(x => x.Name == "DtoGenerator");
+
+            Assert.AreEqual("dtoType", dtoGeneratorType.Methods.First(x => x.Name == "CreateObjectViaConstructor").Parameters.First().Name);
         }
 
         [Test]
