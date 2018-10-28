@@ -35,11 +35,7 @@ namespace AssemblyBrowser
         public IEnumerable<ITypeMemberDeclaration> Members {
             get
             {
-                IEnumerable<ITypeMemberDeclaration> fields = new List<ITypeMemberDeclaration>(_fields);
-                IEnumerable<ITypeMemberDeclaration> properties = new List<ITypeMemberDeclaration>(_properties);
-                IEnumerable<ITypeMemberDeclaration> methods = new List<ITypeMemberDeclaration>(_methods);
-                IEnumerable<ITypeMemberDeclaration> events = new List<ITypeMemberDeclaration>(_events);
-                return fields.Concat(properties).Concat(methods).Concat(events);
+                return ((IEnumerable<ITypeMemberDeclaration>)_fields).Concat(_properties).Concat(_methods).Concat(_events);
             }
         }
 
