@@ -17,15 +17,15 @@ namespace AssemblyBrowser
             _namespaces = new List<NamespaceDeclaration>();
         }
 
-        internal void AddNamespace(NamespaceDeclaration namespaceDeclaration)
+        internal void AddOrCreateNamespace(NamespaceDeclaration namespaceDeclaration)
         {
-            NamespaceDeclaration ns = _namespaces.Find(n => n.Name == namespaceDeclaration.Name);
+            NamespaceDeclaration existingNamespace = _namespaces.Find(n => n.Name == namespaceDeclaration.Name);
 
-            if (ns != null)
+            if (existingNamespace != null)
             {
                 foreach (TypeDeclaration typeDeclaration in namespaceDeclaration.Types)
                 {
-                    ns.AddType(typeDeclaration);
+                    existingNamespace.AddType(typeDeclaration);
                 }
             }
             else
