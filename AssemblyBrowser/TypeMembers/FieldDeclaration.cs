@@ -7,7 +7,7 @@ using System.Reflection;
 
 namespace AssemblyBrowser.TypeMembers
 {
-    public class FieldDeclaration: ITypeMemberDeclaration, IGeneric
+    public class FieldDeclaration: ITypeMemberDeclaration, IGeneralizable
     {
         private readonly Modifiers _modifiers;
         private readonly List<string> _genericParameters;

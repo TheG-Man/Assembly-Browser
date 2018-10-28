@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssemblyBrowser
 {
-    interface IGeneric
+    interface IGeneralizable
     {
         bool IsGeneric { get; }
         IEnumerable<string> GenericParameters { get; }

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AssemblyBrowser.TypeMembers
 {
-    public class ParameterDeclaration : ITypeMemberDeclaration, IGeneric
+    public class ParameterDeclaration : ITypeMemberDeclaration, IGeneralizable
     {
         private readonly Modifiers _modifiers;
         private readonly List<string> _genericParameters;

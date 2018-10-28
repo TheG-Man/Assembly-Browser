@@ -51,7 +51,7 @@
     <Compile Include="Builders\ParameterBuilder.cs" />
     <Compile Include="Builders\PropertyBuilder.cs" />
     <Compile Include="Builders\TypeBuilder.cs" />
-    <Compile Include="IGeneric.cs" />
+    <Compile Include="IGeneralizable.cs" />
     <Compile Include="LoadAssemblyException.cs" />
     <Compile Include="TypeMembers\EventDeclaration.cs" />
     <Compile Include="TypeMembers\FieldDeclaration.cs" />

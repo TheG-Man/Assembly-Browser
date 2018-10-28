@@ -8,7 +8,7 @@ using AssemblyBrowser.TypeMembers;
 
 namespace AssemblyBrowser
 {
-    public class TypeDeclaration: IGeneric
+    public class TypeDeclaration: IGeneralizable
     {
         private readonly Modifiers _modifiers;
         private readonly List<string> _implementedInterfaces;
