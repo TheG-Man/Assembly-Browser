@@ -20,7 +20,6 @@ namespace AssemblyBrowserTests
         [SetUp]
         public void Setup()
         {
-
             _assemblyInfo = _assemblyBrowser.GetAssemblyInfo(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location) + @"/../../TestDll/DtoGenerator.dll");
         }
 
